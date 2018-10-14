@@ -4,12 +4,13 @@ import os
 
 def main():
   with open("readme.md", "w") as f:
+    f.write("## Calio's notes\n")
     for root, dirs, files in os.walk("."):
       if root == ".":
         continue
       if root.startswith("./.git"):
         continue
-      f.write("## {}\n".format(os.path.basename(root)))
+      f.write("### {}\n".format(os.path.basename(root)))
       for name in files:
         f.write("* [{}]({})\n".format(os.path.splitext(name)[0], os.path.join(root, name)))
 
