@@ -3,7 +3,7 @@
 import os
 
 def main():
-  with open("index.md", "w") as f:
+  with open("readme.md", "w") as f:
     for root, dirs, files in os.walk("."):
       if root == ".":
         continue
