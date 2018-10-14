@@ -1,0 +1,18 @@
+#!/usr/bin/env python
+
+import os
+
+def main():
+  with open("index.md", "w") as f:
+    for root, dirs, files in os.walk("."):
+      if root == ".":
+        continue
+      if root.startswith("./.git"):
+        continue
+      f.write("## {}\n".format(os.path.basename(root)))
+      for name in files:
+        f.write("* [{}]({})\n".format(os.path.splitext(name)[0], os.path.join(root, name)))
+
+
+if __name__ == "__main__":
+    main()

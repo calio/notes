@@ -5,6 +5,7 @@ import os
 import re
 import sys
 import glob
+import datetime
 import argparse
 
 
@@ -26,7 +27,8 @@ def main():
     fname = str(new_index) + "-" + "-".join(args.topic) + ".md"
     full_fname = os.path.join(args.category, fname)
     with open(full_fname, "w") as f:
-        f.write("# " + " ".join(args.topic))
+        lines = ["# " + " ".join(args.topic), datetime.datetime.today().strftime("%m/%d/%Y")]
+        f.write("\n".join(lines))
         print("created file {}".format(full_fname))
 
 

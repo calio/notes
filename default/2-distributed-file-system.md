@@ -1,5 +1,4 @@
 ## Distributed file system
-
 10/14/2018
 
 ### Background
