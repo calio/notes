@@ -3,7 +3,6 @@ from __future__ import print_function
 
 import os
 import re
-import sys
 import glob
 import datetime
 import argparse
@@ -11,9 +10,13 @@ import argparse
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--category", default="default", help="note category")
+    parser.add_argument("-c", "--category", default="default",
+                        help="note category")
     parser.add_argument("topic", nargs="+")
     args = parser.parse_args()
+
+    if not os.path.isdir(args.category):
+        os.mkdir(args.category)
 
     files = glob.glob(os.path.join(args.category, "*.md"))
     indexes = [int(re.match("^[a-zA-Z0-9_-]+\/(\d+)", x).group(1)) for x in files]
@@ -27,7 +30,8 @@ def main():
     fname = str(new_index) + "-" + "-".join(args.topic) + ".md"
     full_fname = os.path.join(args.category, fname)
     with open(full_fname, "w") as f:
-        lines = ["# " + " ".join(args.topic), datetime.datetime.today().strftime("%m/%d/%Y")]
+        lines = ["# " + " ".join(args.topic),
+                 datetime.datetime.today().strftime("%m/%d/%Y")]
         f.write("\n".join(lines))
         print("created file {}".format(full_fname))
 
